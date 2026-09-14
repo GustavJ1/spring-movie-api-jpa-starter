@@ -1,9 +1,6 @@
 package ek.osnb.starter.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Movie {
@@ -15,12 +12,17 @@ public class Movie {
     private Integer releaseYear;
     private String genre;
 
+    @Embedded
+    private Rating rating;
+
+
     public Movie() {}
 
-    public Movie(String title, Integer releaseYear, String genre) {
+    public Movie(String title, Integer releaseYear, String genre, Rating rating) {
         this.title = title;
         this.releaseYear = releaseYear;
         this.genre = genre;
+        this.rating = rating;
     }
 
     public Long getId() {
@@ -53,5 +55,13 @@ public class Movie {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
     }
 }
