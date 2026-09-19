@@ -2,6 +2,9 @@ package ek.osnb.starter.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Movie {
     @Id
@@ -15,8 +18,17 @@ public class Movie {
     @Embedded
     private Rating rating;
 
+    @ManyToMany
+    @JoinTable(
+            name = "movie_actor",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    Set<Actor> actors = new HashSet<>();
 
-    public Movie() {}
+
+    public Movie() {
+    }
 
     public Movie(String title, Integer releaseYear, String genre, Rating rating) {
         this.title = title;
@@ -43,6 +55,14 @@ public class Movie {
 
     public Integer getReleaseYear() {
         return releaseYear;
+    }
+
+    public Set<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
     }
 
     public void setReleaseYear(Integer releaseYear) {
